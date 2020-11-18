@@ -4,12 +4,12 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import ar.com.apicashonline.cashonline.entities.Loan;
-import ar.com.apicashonline.cashonline.entities.User;
+import ar.com.apicashonline.cashonline.entities.Usuario;
 
 @Repository
 public interface LoanRepository extends JpaRepository<Loan, Integer>{
 
     public Loan findById(int id);
-    public Loan findByUser(User u);
+    public Loan findByUser(Usuario u);
 
 }

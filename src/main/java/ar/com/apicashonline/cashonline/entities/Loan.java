@@ -16,12 +16,12 @@ public class Loan {
     private BigDecimal total = new BigDecimal(0);
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "user_id")
-    private User user;
+    private Usuario user;
 
     public Loan() {
     }
 
-    public Loan(int loanId, BigDecimal total, User user) {
+    public Loan(int loanId, BigDecimal total, Usuario user) {
         this.loanId = loanId;
         this.total = total;
         this.user = user;
@@ -43,11 +43,11 @@ public class Loan {
         this.total = total;
     }
 
-    public User getUser() {
+    public Usuario getUser() {
         return user;
     }
 
-    public void setUser(User user) {
+    public void setUser(Usuario user) {
         this.user = user;
         this.user.getLoans().add(this);
     }

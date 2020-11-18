@@ -9,12 +9,14 @@ import org.hibernate.annotations.LazyCollectionOption;
 
 @Entity
 @Table(name = "user")
-public class User {
+public class Usuario {
 
     @Id
     @Column(name = "user_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int userId;
+    private String userName;
+    private String password;
     @Column(name = "firstName")
     private String firstName;
     @Column(name = "lastName")
@@ -27,10 +29,10 @@ public class User {
     private List<Loan> loans = new ArrayList<Loan>();
 
 
-    public User() {
+    public Usuario() {
     }
 
-    public User(int userId, String firstName, String lastName, String userEmail, List<Loan> loans) {
+    public Usuario(int userId, String firstName, String lastName, String userEmail, List<Loan> loans) {
         this.userId = userId;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -38,7 +40,7 @@ public class User {
         this.loans = loans;
     }
 
-    public User(int userId, String firstName, String lastName, String userEmail) {
+    public Usuario(int userId, String firstName, String lastName, String userEmail) {
         this.userId = userId;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -51,6 +53,22 @@ public class User {
 
     public void setUserId(int userId) {
         this.userId = userId;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getFirstName() {
@@ -86,7 +104,5 @@ public class User {
 
     }
 
-    
-
-    
+        
 }
