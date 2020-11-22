@@ -25,7 +25,7 @@ public class JWTUserDetailsService implements UserDetailsService {
         if (u != null) {
             return new User(u.getUserName(), u.getPassword(), new ArrayList<>());
         } else {
-            throw new UsernameNotFoundException("User not found with username: " + userName);
+            throw new UsernameNotFoundException("Usuario no encontrado con username: " + userName);
         }
     }
     

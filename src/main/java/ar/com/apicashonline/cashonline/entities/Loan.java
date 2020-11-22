@@ -4,6 +4,8 @@ import java.math.BigDecimal;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "loan")
 public class Loan {
@@ -16,6 +18,7 @@ public class Loan {
     private BigDecimal total = new BigDecimal(0);
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "user_id")
+    @JsonIgnore
     private Usuario user;
 
     public Loan() {

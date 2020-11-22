@@ -15,14 +15,16 @@ public class Usuario {
     @Column(name = "user_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int userId;
+
     private String userName;
     private String password;
+    private String email;
+
     @Column(name = "firstName")
     private String firstName;
     @Column(name = "lastName")
     private String lastName;
-    @Column(name = "email")
-    private String userEmail;
+
     @OneToMany (mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "loan_id", referencedColumnName = "loan_id")
     @LazyCollection (LazyCollectionOption.FALSE)
@@ -36,7 +38,7 @@ public class Usuario {
         this.userId = userId;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.userEmail = userEmail;
+        this.email = userEmail;
         this.loans = loans;
     }
 
@@ -44,7 +46,7 @@ public class Usuario {
         this.userId = userId;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.userEmail = userEmail;
+        this.email = userEmail;
     }
 
     public int getUserId() {
@@ -87,12 +89,12 @@ public class Usuario {
         this.lastName = lastName;
     }
 
-    public String getUserEmail() {
-        return userEmail;
+    public String getEmail() {
+        return email;
     }
 
-    public void setUserEmail(String userEmail) {
-        this.userEmail = userEmail;
+    public void setEmail(String userEmail) {
+        this.email = userEmail;
     }
 
     public List<Loan> getLoans() {
