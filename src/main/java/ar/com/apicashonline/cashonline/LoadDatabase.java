@@ -1,4 +1,4 @@
-ackage ar.com.apicashonline.cashonline;
+package ar.com.apicashonline.cashonline;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
