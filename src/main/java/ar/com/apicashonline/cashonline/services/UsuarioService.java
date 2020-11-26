@@ -1,50 +1,36 @@
 package ar.com.apicashonline.cashonline.services;
 
-import java.util.*;
+import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.stereotype.Service;
 
 import ar.com.apicashonline.cashonline.entities.Usuario;
-import ar.com.apicashonline.cashonline.repo.UserRepository;
-import ar.com.apicashonline.cashonline.security.Crypto;
+import ar.com.apicashonline.cashonline.excepciones.UsuarioExisteException;
+import ar.com.apicashonline.cashonline.excepciones.UsuarioNoExisteException;
+import ar.com.apicashonline.cashonline.repo.UsuarioRepository;
 
 @Service
 public class UsuarioService {
 
     @Autowired
-    UserRepository repo;
+    UsuarioRepository repo;
 
-    public Usuario altaUser(String firstName, String lastName, String userEmail){
+    public Usuario altaUser(String firstName, String lastName, String userEmail) throws UsuarioExisteException {
         Usuario u = new Usuario();
         u.setFirstName(firstName);
         u.setLastName(lastName);
         u.setEmail(userEmail);
-        u.setUserName(userEmail);
 
-        String passwordEnTextoClaro;
-        String passwordEncriptada;
+        for (Usuario usuarioExistente : repo.findAll()) {
+            if (userEmail.equals(usuarioExistente.getEmail()))
+            throw new UsuarioExisteException("Ya existe un usuario registrado con ese e-mail. Por favor ingrese uno diferente.");
+        }
 
-        // dejo seguridad preparada para implementar password a futuro
-        passwordEnTextoClaro = userEmail+lastName;
-        passwordEncriptada = Crypto.encrypt(passwordEnTextoClaro, u.getUserName());
-
-        u.setPassword(passwordEncriptada);
         save(u);
 
         return u;
-    }
-
-    public void login(String username, String password) {
-
-        Usuario u = repo.findByUserName(username);
-
-        if (u == null || !u.getPassword().equals(Crypto.encrypt(password, u.getUserName()))) {
-
-            throw new BadCredentialsException("Usuario o contraseña invalida");
-        }
-
     }
 
     public void save(Usuario u) {
@@ -56,23 +42,20 @@ public class UsuarioService {
         return repo.findAll();
     }
 
-    public Usuario buscarPorEmail(String email) {
+    public Usuario buscarPorId(Integer id) throws UsuarioNoExisteException {
 
-        return repo.findByUserEmail(email);
-    }
-
-    public Usuario buscarPorUserName(String userName) {
-
-        return repo.findByUserName(userName);
-    }
-
-    public Usuario buscarPorId(int id) {
-
-        Optional<Usuario> u = Optional.of(repo.findById(id));
+        Optional<Usuario> u = repo.findById(id);
 
         if (u.isPresent())
             return u.get();
-        return null;
+        throw new UsuarioNoExisteException("No existe usuario con el id " + id);
+    }
+
+    public void bajaUsuario(Integer id) throws UsuarioNoExisteException {
+
+        Usuario u = this.buscarPorId(id);
+        repo.delete(u);
+        
     }
     
 }

@@ -15,6 +15,7 @@
 	<description>Demo project for Spring Boot</description>
 
 	<properties>
+	    <start-class>ar.com.apicashonline.cashonline.CashonlineApplication</start-class>
 		<java.version>11</java.version>
 	</properties>
 

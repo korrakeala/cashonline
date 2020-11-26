@@ -14,63 +14,52 @@ public class Usuario {
     @Id
     @Column(name = "user_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int userId;
-
-    private String userName;
-    private String password;
+    private Integer id;
+    @Column(name = "email")
     private String email;
-
-    @Column(name = "firstName")
+    @Column(name = "first_name")
     private String firstName;
-    @Column(name = "lastName")
+    @Column(name = "last_name")
     private String lastName;
 
     @OneToMany (mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "loan_id", referencedColumnName = "loan_id")
+    @Column(name = "loan_id")
     @LazyCollection (LazyCollectionOption.FALSE)
-    private List<Loan> loans = new ArrayList<Loan>();
-
+    private List<Loan> loans;
 
     public Usuario() {
     }
 
-    public Usuario(int userId, String firstName, String lastName, String userEmail, List<Loan> loans) {
-        this.userId = userId;
+    public Usuario(String email, String firstName, String lastName) {
+        this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.email = userEmail;
+    }
+
+    public Usuario(String email, String firstName, String lastName, List<Loan> loans) {
+        this.email = email;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        for (Loan loan : loans) {
+            loan.setUserId(loan.getUser());
+        }
         this.loans = loans;
     }
 
-    public Usuario(int userId, String firstName, String lastName, String userEmail) {
-        this.userId = userId;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = userEmail;
+    public Integer getId() {
+        return id;
     }
 
-    public int getUserId() {
-        return userId;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public String getEmail() {
+        return email;
     }
 
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getFirstName() {
@@ -89,22 +78,25 @@ public class Usuario {
         this.lastName = lastName;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String userEmail) {
-        this.email = userEmail;
-    }
-
     public List<Loan> getLoans() {
+        for (Loan loan : loans) {
+            loan.setUserId(loan.getUser());
+        }
         return loans;
     }
 
     public void setLoans(List<Loan> loans) {
         this.loans = loans;
-
     }
 
+    public void addLoan(Loan loan) {
+        loan.setUser(this);
+        this.loans.add(loan);
+    }
+
+    @Override
+    public String toString() {
+        return "Usuario id: " + id + ", email: " + email + ", firstName: " + firstName + ", lastName: " + lastName + ".";
+    }
         
 }

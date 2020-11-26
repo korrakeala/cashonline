@@ -1,6 +1,6 @@
 package ar.com.apicashonline.cashonline.models.request;
 
-public class RegistrationRequest {
+public class AltaRequest {
 
     public String firstName;
     public String lastName;
