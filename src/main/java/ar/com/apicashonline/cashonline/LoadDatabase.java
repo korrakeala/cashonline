@@ -2,6 +2,7 @@ package ar.com.apicashonline.cashonline;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.Date;
 import java.util.Random;
 
 import org.slf4j.Logger;
@@ -28,18 +29,21 @@ public class LoadDatabase implements CommandLineRunner {
 
   @Override
   public void run(String... args) throws Exception {
-    // usuarioRepository.deleteAll();
 
-    for (int i = 0; i < 2; i++) {
+    int cantUsersACrear = 2;
+    // lleno tabla user
+    for (int i = 0; i < cantUsersACrear; i++) {
+      long nroUnico = new Date().getTime();
       logger.info("Preloading "
-          + (usuarioRepository.save(new Usuario("prueba" + i + "@prueba11.com", "Juana" + i, "Molina" + i)).toString()));
+          + (usuarioRepository.save(new Usuario(nroUnico + "@prueba.com", "Juana" + i, "Stark" + i)).toString()));
     }
 
+    // lleno tabla loan
     logger.info("Preloading Loans...");
     BigDecimal total = new BigDecimal(0);
     int userId = 0;
     int min = 6;
-    int max = 230;
+    int max = (int)usuarioRepository.count();
     Random random = new Random();
     int cantLoans = 10;
 

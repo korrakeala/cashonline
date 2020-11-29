@@ -57,5 +57,35 @@ public class UsuarioService {
         repo.delete(u);
         
     }
+
+    public enum UserValidationType {
+        USER_OK, 
+        USER_DUPLICATED, 
+        USER_INVALID_DATA
+    }
+
+    public UserValidationType verifyUser(Usuario user) {
+        if (user.getFirstName() == null)
+            return UserValidationType.USER_INVALID_DATA;
+
+        if (user.getLastName() == null)
+            return UserValidationType.USER_INVALID_DATA;
+
+        if (user.getEmail() == null)
+            return UserValidationType.USER_INVALID_DATA;
+
+        Usuario u = repo.findByEmail(user.getEmail());
+        if (u != null) {
+            if (user.getId() != null) {
+                if ((user.getId().toString()).equals(u.getId().toString())) {
+                    return UserValidationType.USER_OK;
+                } else {
+                    return UserValidationType.USER_DUPLICATED;
+                }
+            } else
+                return UserValidationType.USER_DUPLICATED;
+        }
+        return UserValidationType.USER_OK;
+    }
     
 }

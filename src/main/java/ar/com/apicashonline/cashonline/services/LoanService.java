@@ -55,5 +55,17 @@ public class LoanService {
         }
 
     }
+
+    public enum LoanValidationType {
+        LOAN_OK, LOAN_INVALID_DATA
+    }
+
+    public LoanValidationType verifyLoan(Loan loan) {
+        if (loan.getTotal().compareTo(BigDecimal.ZERO) > 0) {
+            return LoanValidationType.LOAN_INVALID_DATA;
+        }
+        return LoanValidationType.LOAN_OK;
+
+    }
     
 }
