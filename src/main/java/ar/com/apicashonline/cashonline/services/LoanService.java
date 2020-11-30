@@ -61,7 +61,7 @@ public class LoanService {
     }
 
     public LoanValidationType verifyLoan(Loan loan) {
-        if (loan.getTotal().compareTo(BigDecimal.ZERO) > 0) {
+        if (loan.getTotal().compareTo(BigDecimal.ZERO) < 0) {
             return LoanValidationType.LOAN_INVALID_DATA;
         }
         return LoanValidationType.LOAN_OK;

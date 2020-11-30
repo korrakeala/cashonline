@@ -40,9 +40,9 @@ class CashonlineApplicationTests {
 	void verifyDuplicatedUser() {
 
 		Usuario user = new Usuario();
-		user.setFirstName("Pepe");
-		user.setLastName("Argento");
-		user.setEmail("test@app.com.ar");
+		user.setFirstName("Guillermo");
+		user.setLastName("Francella");
+		user.setEmail("user@test.com");
 
 		UserValidationType validationType = userService.verifyUser(user);
 		assertEquals(UserValidationType.USER_DUPLICATED, validationType);
@@ -59,15 +59,6 @@ class CashonlineApplicationTests {
 
 		UserValidationType validationType = userService.verifyUser(user);
 		assertEquals(UserValidationType.USER_OK, validationType);
-
-	}
-
-	@Test
-	void verifyLoanData() {
-
-		Loan loan = new Loan();
-		LoanValidationType validationType = loanService.verifyLoan(loan);
-		assertEquals(LoanValidationType.LOAN_INVALID_DATA, validationType);
 
 	}
 
