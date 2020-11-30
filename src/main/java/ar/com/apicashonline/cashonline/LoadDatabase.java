@@ -3,6 +3,7 @@ package ar.com.apicashonline.cashonline;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Date;
+import java.util.Optional;
 import java.util.Random;
 
 import org.slf4j.Logger;
@@ -35,15 +36,16 @@ public class LoadDatabase implements CommandLineRunner {
     for (int i = 0; i < cantUsersACrear; i++) {
       long nroUnico = new Date().getTime();
       logger.info("Preloading "
-          + (usuarioRepository.save(new Usuario(nroUnico + "@prueba.com", "Juana" + i, "Stark" + i)).toString()));
+          + (usuarioRepository.save(new Usuario(nroUnico + "@p.com", "Juana" + i, "Stark" + i)).toString()));
     }
 
     // lleno tabla loan
     logger.info("Preloading Loans...");
     BigDecimal total = new BigDecimal(0);
     int userId = 0;
-    int min = 6;
-    int max = (int)usuarioRepository.count();
+    int min = 6; // para evitar problemas con ids vacíos antes de ese
+    int max = 230; // en DB local usaría (int)usuarioRepository.count(); pero ClearDB en 
+    // Heroku hace los inserts con gaps de 10 entre pk y pk, y no se puede modificar
     Random random = new Random();
     int cantLoans = 10;
 
