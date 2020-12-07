@@ -1,0 +1,298 @@
+{
+	"info": {
+		"_postman_id": "1f156a8b-28ce-40c8-ab55-f28018ddaa36",
+		"name": "CashOnline",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "/loans?page={page}&size={size}",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4228b1ba-2ed2-4e57-acd7-8316ca0d6bc6",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Include items and page as fields\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.have.property(\"items\");",
+							"    pm.expect(jsonData).to.have.property(\"page\");",
+							"",
+							"});",
+							"",
+							"pm.test(\"items > 0\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.items).to.be.an(\"array\");",
+							"    pm.expect(jsonData.items.length).to.be.above(0);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://cashonlineheroku.herokuapp.com/loans?page=1&size=5",
+					"protocol": "https",
+					"host": [
+						"cashonlineheroku",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"loans"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "1"
+						},
+						{
+							"key": "size",
+							"value": "5"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/loans?page={page}&size={size}&user_id={id}",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7639901f-c644-4dca-a7b0-ae86a3e410b2",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://cashonlineheroku.herokuapp.com/loans?page=0&size=5&user_id=3",
+					"protocol": "https",
+					"host": [
+						"cashonlineheroku",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"loans"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "0"
+						},
+						{
+							"key": "size",
+							"value": "5"
+						},
+						{
+							"key": "user_id",
+							"value": "3"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/users/{id}",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c15126f8-2824-4572-89f8-763040866794",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://cashonlineheroku.herokuapp.com/users/88",
+					"protocol": "https",
+					"host": [
+						"cashonlineheroku",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"users",
+						"88"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/users/{id}",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e44c5bfe-a7bc-4cd5-885f-aa9036ef5c6c",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://cashonlineheroku.herokuapp.com/users/2",
+					"protocol": "https",
+					"host": [
+						"cashonlineheroku",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"users",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/users",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d78e6310-b2de-4e2c-a533-add4171a711b",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"d10s@test.com\",\n    \"firstName\": \"Diego\",\n    \"lastName\": \"Maradona\"\n}"
+				},
+				"url": {
+					"raw": "https://cashonlineheroku.herokuapp.com/users",
+					"protocol": "https",
+					"host": [
+						"cashonlineheroku",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/loans",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"userId\": \"271\",\n    \"total\": \"180000.00\"\n}"
+				},
+				"url": {
+					"raw": "https://cashonlineheroku.herokuapp.com/loans",
+					"protocol": "https",
+					"host": [
+						"cashonlineheroku",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"loans"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "c7267eaf-80a1-41c0-8b2a-162844264d2f",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "0f929a6d-7809-4aba-b0e2-2f3dd2806693",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
